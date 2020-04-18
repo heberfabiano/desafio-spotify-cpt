@@ -24,6 +24,12 @@ def get_related_artists(token, artist_id):
     return request_spotify(url, {}, token)
 
 
+@app.route('/get_artist/<token>/<artist_id>')
+def get_artist(token, artist_id):
+    url = f'https://api.spotify.com/v1/artists/{artist_id}'
+    return request_spotify(url, {}, token)
+
+
 @app.route('/get_user/<token>')
 def get_user(token):
     url = 'https://api.spotify.com/v1/me'
@@ -33,8 +39,6 @@ def get_user(token):
 def request_spotify(url, params, token):
     headers = {'Authorization': f'Bearer {token}'}
     response = requests.get(url, params=params, headers=headers)
-    print(response.url)
-    print(response.status_code)
     return response.json()
 
 
